@@ -21,15 +21,19 @@ namespace ContinuousJobGracefulShutdown
 
             host.RunAndBlock();
 
+            Console.WriteLine("Exitied RunAndBlock");
+
             try
             {
                 task.Wait();
             }
             catch (AggregateException ex)
             {
-                Console.WriteLine("While wating task: " + ex.Message);
+                Console.WriteLine("Excetion while wating task: " + ex.Message);
                 ex.Handle(e => e is TaskCanceledException);
             }
+
+            Console.WriteLine("Exiting Main");
         }
     }
 }
